@@ -20,22 +20,22 @@ ProtoBufWebSocketResponseMessage::ProtoBufWebSocketResponseMessage(const textsec
 {
 }
 
-quint64 ProtoBufWebSocketResponseMessage::getRequestId()
+quint64 ProtoBufWebSocketResponseMessage::requestId()
 {
     return m_message->id();
 }
 
-quint32 ProtoBufWebSocketResponseMessage::getStatus()
+quint32 ProtoBufWebSocketResponseMessage::status()
 {
     return m_message->status();
 }
 
-QString ProtoBufWebSocketResponseMessage::getMessage()
+QString ProtoBufWebSocketResponseMessage::message()
 {
     return QString::fromStdString(m_message->message());
 }
 
-QByteArray ProtoBufWebSocketResponseMessage::getBody()
+QByteArray ProtoBufWebSocketResponseMessage::body()
 {
     if (m_message->has_body()) {
         return QByteArray::fromStdString(m_message->body());

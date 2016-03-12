@@ -28,10 +28,10 @@ public:
         RESPONSE_MESSAGE
     };
 
-    virtual Type getType() = 0;
-    virtual QSharedPointer<WebSocketRequestMessage> getRequestMessage() = 0;
-    virtual QSharedPointer<WebSocketResponseMessage> getResponseMessage() = 0;
-    virtual QByteArray toByteArray() = 0;
+    virtual Type type();
+    virtual QSharedPointer<WebSocketRequestMessage> requestMessage();
+    virtual QSharedPointer<WebSocketResponseMessage> responseMessage();
+    virtual QByteArray toByteArray();
 
     bool hasError() const;
     WebSocketMessageError getError() const;

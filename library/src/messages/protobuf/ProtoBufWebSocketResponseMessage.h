@@ -24,10 +24,10 @@ public:
     ProtoBufWebSocketResponseMessage(const textsecure::WebSocketResponseMessage &responseMessage);
 
     // WebSocketResponseMessage interface
-    quint64 getRequestId() Q_DECL_OVERRIDE;
-    quint32 getStatus() Q_DECL_OVERRIDE;
-    QString getMessage() Q_DECL_OVERRIDE;
-    QByteArray getBody() Q_DECL_OVERRIDE;
+    quint64 requestId() Q_DECL_OVERRIDE;
+    quint32 status() Q_DECL_OVERRIDE;
+    QString message() Q_DECL_OVERRIDE;
+    QByteArray body() Q_DECL_OVERRIDE;
 
 private:
     QScopedPointer<textsecure::WebSocketResponseMessage> m_message;

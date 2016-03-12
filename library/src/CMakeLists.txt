@@ -16,6 +16,9 @@ set( Project_SRC
    messages/protobuf/ProtoBufWebSocketMessage.cpp
    messages/protobuf/ProtoBufWebSocketRequestMessage.cpp
    messages/protobuf/ProtoBufWebSocketResponseMessage.cpp
+   messages/protobuf/ProtobufWebSocketMessageFactory.cpp
+
+   ../protobuf/SubProtocol.proto
 )
 
 add_library(${PROJECT_NAME} ${Project_SRC})

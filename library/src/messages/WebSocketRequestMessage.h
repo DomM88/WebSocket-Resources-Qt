@@ -18,10 +18,10 @@ public:
     WebSocketRequestMessage() {}
     virtual ~WebSocketRequestMessage() {}
 
-    virtual QString getVerb() = 0;
-    virtual QString getPath() = 0;
-    virtual QByteArray getBody() = 0;
-    virtual quint64 getRequestId() = 0;
+    virtual QString verb() = 0;
+    virtual QString path() = 0;
+    virtual QByteArray body() = 0;
+    virtual quint64 requestId() = 0;
     virtual bool hasRequestId() = 0;
 };
 

@@ -11,6 +11,7 @@
 
 #include "WebSocketMessage.h"
 
+#include <QSharedPointer>
 #include <QByteArray>
 
 class WebSocketMessageFactory
@@ -19,12 +20,12 @@ public:
     WebSocketMessageFactory() {}
     virtual ~WebSocketMessageFactory() {}
 
-    virtual WebSocketMessage parseMessage(const QByteArray &serialized) = 0;
+    virtual QSharedPointer<WebSocketMessage> parseMessage(const QByteArray &serialized) = 0;
 
-    virtual WebSocketMessage createRequest(long requestId, const QString &verb,
+    virtual QSharedPointer<WebSocketMessage> createRequest(quint64 requestId, const QString &verb,
                                            const QString &path, const QByteArray &body) = 0;
 
-    virtual WebSocketMessage createResponse(long requestId, int status,
+    virtual QSharedPointer<WebSocketMessage> createResponse(quint64 requestId, quint32 status,
                                             const QString &message, const QByteArray &body) = 0;
 };
 

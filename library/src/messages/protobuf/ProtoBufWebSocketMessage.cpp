@@ -17,13 +17,13 @@ ProtoBufWebSocketMessage::ProtoBufWebSocketMessage(const QByteArray &buffer)
 {
     m_message->ParseFromString(buffer.toStdString());
 
-    if (getType() == REQUEST_MESSAGE) {
+    if (type() == REQUEST_MESSAGE) {
         if (!m_message->request().has_verb() ||
                 !m_message->request().has_path()) {
             setError(WebSocketMessageError(WebSocketMessageError::Error::WrongAttributes,
                                            "Missing required request attributes!"));
         }
-    } else if (getType() == RESPONSE_MESSAGE) {
+    } else if (type() == RESPONSE_MESSAGE) {
         if (!m_message->response().has_id() ||
                 !m_message->response().has_status() ||
                 !m_message->response().has_message()) {
@@ -33,16 +33,22 @@ ProtoBufWebSocketMessage::ProtoBufWebSocketMessage(const QByteArray &buffer)
     }
 }
 
-ProtoBufWebSocketMessage::ProtoBufWebSocketMessage(const textsecure::WebSocketMessage &websocketMessage)
+/*!
+ * \brief ProtoBufWebSocketMessage::ProtoBufWebSocketMessage
+ * This constructor takes ownership of plain message pointer.
+ * \param websocketMessage
+ */
+ProtoBufWebSocketMessage::ProtoBufWebSocketMessage(textsecure::WebSocketMessage *websocketMessage)
+    : m_message(websocketMessage)
 {
-    m_message->CopyFrom(websocketMessage);
+
 }
 
 ProtoBufWebSocketMessage::~ProtoBufWebSocketMessage()
 {
 }
 
-WebSocketMessage::Type ProtoBufWebSocketMessage::getType()
+WebSocketMessage::Type ProtoBufWebSocketMessage::type()
 {
     if (m_message->type() == textsecure::WebSocketMessage_Type_REQUEST &&
             m_message->has_request()) {
@@ -55,12 +61,12 @@ WebSocketMessage::Type ProtoBufWebSocketMessage::getType()
     }
 }
 
-QSharedPointer<WebSocketRequestMessage> ProtoBufWebSocketMessage::getRequestMessage()
+QSharedPointer<WebSocketRequestMessage> ProtoBufWebSocketMessage::requestMessage()
 {
-    m_message->request();
+    return QSharedPointer<WebSocketRequestMessage>(new ProtoBufWebSocketRequestMessage(m_message->request()));
 }
 
-QSharedPointer<WebSocketResponseMessage> ProtoBufWebSocketMessage::getResponseMessage()
+QSharedPointer<WebSocketResponseMessage> ProtoBufWebSocketMessage::responseMessage()
 {
     return QSharedPointer<WebSocketResponseMessage>(new ProtoBufWebSocketResponseMessage(m_message->response()));
 }

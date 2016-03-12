@@ -8,6 +8,26 @@
 
 #include "WebSocketMessage.h"
 
+WebSocketMessage::Type WebSocketMessage::type()
+{
+    return UNKNOWN_MESSAGE;
+}
+
+QSharedPointer<WebSocketRequestMessage> WebSocketMessage::requestMessage()
+{
+    return QSharedPointer<WebSocketRequestMessage>();
+}
+
+QSharedPointer<WebSocketResponseMessage> WebSocketMessage::responseMessage()
+{
+    return QSharedPointer<WebSocketResponseMessage>();
+}
+
+QByteArray WebSocketMessage::toByteArray()
+{
+    return QByteArray();
+}
+
 bool WebSocketMessage::hasError() const
 {
     return m_error.hasError();

@@ -13,26 +13,24 @@
 ProtoBufWebSocketRequestMessage::ProtoBufWebSocketRequestMessage()
     : m_message(new textsecure::WebSocketRequestMessage)
 {
-
 }
 
 ProtoBufWebSocketRequestMessage::ProtoBufWebSocketRequestMessage(const textsecure::WebSocketRequestMessage &requestMessage)
     : m_message(new textsecure::WebSocketRequestMessage(requestMessage))
 {
-
 }
 
-QString ProtoBufWebSocketRequestMessage::getVerb()
+QString ProtoBufWebSocketRequestMessage::verb()
 {
     return QString::fromStdString(m_message->verb());
 }
 
-QString ProtoBufWebSocketRequestMessage::getPath()
+QString ProtoBufWebSocketRequestMessage::path()
 {
     return QString::fromStdString(m_message->path());
 }
 
-QByteArray ProtoBufWebSocketRequestMessage::getBody()
+QByteArray ProtoBufWebSocketRequestMessage::body()
 {
     if (m_message->has_body()) {
         return QByteArray::fromStdString(m_message->body());
@@ -40,7 +38,7 @@ QByteArray ProtoBufWebSocketRequestMessage::getBody()
     return QByteArray();
 }
 
-quint64 ProtoBufWebSocketRequestMessage::getRequestId()
+quint64 ProtoBufWebSocketRequestMessage::requestId()
 {
     return m_message->id();
 }
