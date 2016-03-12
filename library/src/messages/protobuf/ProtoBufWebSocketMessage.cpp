@@ -30,6 +30,9 @@ ProtoBufWebSocketMessage::ProtoBufWebSocketMessage(const QByteArray &buffer)
             setError(WebSocketMessageError(WebSocketMessageError::Error::WrongAttributes,
                                            "Missing required response attributes!"));
         }
+    } else {
+        setError(WebSocketMessageError(WebSocketMessageError::Error::Parse,
+                 "Invalid message was parsed."));
     }
 }
 

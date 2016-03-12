@@ -11,7 +11,7 @@
 
 #include "../WebSocketRequestMessage.h"
 
-#include <QScopedPointer>
+#include <QSharedPointer>
 
 namespace textsecure {
 class WebSocketRequestMessage;
@@ -31,7 +31,7 @@ public:
     bool hasRequestId() Q_DECL_OVERRIDE;
 
 private:
-    QScopedPointer<textsecure::WebSocketRequestMessage> m_message;
+    QSharedPointer<textsecure::WebSocketRequestMessage> m_message;
 };
 
 #endif // PROTOBUFWEBSOCKETREQUESTMESSAGE_H

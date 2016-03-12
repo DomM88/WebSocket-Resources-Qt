@@ -11,7 +11,7 @@
 
 #include "../WebSocketResponseMessage.h"
 
-#include <qscopedpointer.h>
+#include <QSharedPointer>
 
 namespace textsecure {
 class WebSocketResponseMessage;
@@ -30,7 +30,7 @@ public:
     QByteArray body() Q_DECL_OVERRIDE;
 
 private:
-    QScopedPointer<textsecure::WebSocketResponseMessage> m_message;
+    QSharedPointer<textsecure::WebSocketResponseMessage> m_message;
 };
 
 #endif // PROTOBUFWEBSOCKETRESPONSEMESSAGE_H

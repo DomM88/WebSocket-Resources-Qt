@@ -9,26 +9,26 @@
 #include <QString>
 #include <QtTest>
 
-class ProtobufWebSocketMessageFactoryTest : public QObject
+class ProtoBufWebSocketMessageFactoryTest : public QObject
 {
     Q_OBJECT
 
 public:
-    ProtobufWebSocketMessageFactoryTest();
+    ProtoBufWebSocketMessageFactoryTest();
 
 private Q_SLOTS:
     void testCase1();
 };
 
-ProtobufWebSocketMessageFactoryTest::ProtobufWebSocketMessageFactoryTest()
+ProtoBufWebSocketMessageFactoryTest::ProtoBufWebSocketMessageFactoryTest()
 {
 }
 
-void ProtobufWebSocketMessageFactoryTest::testCase1()
+void ProtoBufWebSocketMessageFactoryTest::testCase1()
 {
     QVERIFY2(true, "Failure");
 }
 
-QTEST_APPLESS_MAIN(ProtobufWebSocketMessageFactoryTest)
+QTEST_APPLESS_MAIN(ProtoBufWebSocketMessageFactoryTest)
 
-#include "tst_ProtobufWebSocketMessageFactoryTest.moc"
+#include "tst_ProtoBufWebSocketMessageFactoryTest.moc"
