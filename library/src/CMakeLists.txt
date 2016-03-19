@@ -22,5 +22,6 @@ set( Project_SRC
 )
 
 add_library(${PROJECT_NAME} ${Project_SRC})
+target_link_libraries(${PROJECT_NAME} ProtoBufGenLib)
 
 qt5_use_modules(${PROJECT_NAME} Core Concurrent )

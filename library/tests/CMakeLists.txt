@@ -1,6 +1,4 @@
 
-add_subdirectory( WebSocketMessageError )
-add_subdirectory( ProtoBufWebSocketRequestMessage )
-add_subdirectory( ProtoBufWebSocketResponseMessage )
-add_subdirectory( ProtoBufWebSocketMessage )
-add_subdirectory( ProtoBufWebSocketMessageFactory )
+add_subdirectory( messages )
+
+add_subdirectory( WebSocketClient )

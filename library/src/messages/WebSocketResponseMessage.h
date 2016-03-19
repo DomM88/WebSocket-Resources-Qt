@@ -18,10 +18,10 @@ public:
     WebSocketResponseMessage() {}
     virtual ~WebSocketResponseMessage() {}
 
-    virtual quint64 requestId() = 0;
-    virtual quint32 status() = 0;
-    virtual QString message() = 0;
-    virtual QByteArray body() = 0;
+    virtual quint64 requestId() { return 0; }
+    virtual quint32 status() { return 0; }
+    virtual QString message() { return QStringLiteral(""); }
+    virtual QByteArray body() { return QByteArray(); }
 };
 
 #endif // WEBSOCKETRESPONSEMESSAGE

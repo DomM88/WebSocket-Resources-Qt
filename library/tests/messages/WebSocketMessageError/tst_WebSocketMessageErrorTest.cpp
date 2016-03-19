@@ -9,6 +9,8 @@
 #include <QString>
 #include <QtTest>
 
+#include <messages/WebSocketMessageError.h>
+
 class WebSocketMessageErrorTest : public QObject
 {
     Q_OBJECT
@@ -17,16 +19,23 @@ public:
     WebSocketMessageErrorTest();
 
 private Q_SLOTS:
-    void testCase1();
+    void testDefault();
 };
 
 WebSocketMessageErrorTest::WebSocketMessageErrorTest()
 {
 }
 
-void WebSocketMessageErrorTest::testCase1()
+void WebSocketMessageErrorTest::testDefault()
 {
-    QVERIFY2(true, "Failure");
+    WebSocketMessageError error;
+    QVERIFY2(error.hasError() == false, "Error on default");
+
+    error.setError(WebSocketMessageError::Error::Parse);
+    QVERIFY2(error.hasError() == true, "No error on explicit set error");
+
+    error.setText("hello");
+    QVERIFY2(error.text() == "hello", "Text wasn't set");
 }
 
 QTEST_APPLESS_MAIN(WebSocketMessageErrorTest)
