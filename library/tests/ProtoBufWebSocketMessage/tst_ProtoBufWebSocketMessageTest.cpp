@@ -27,6 +27,7 @@ private Q_SLOTS:
     void testResponseMessage();
     void testFromEmptyBuffer();
     void testRequestFromBuffer();
+    void testResponseFromBuffer();
 };
 
 ProtoBufWebSocketMessageTest::ProtoBufWebSocketMessageTest()
@@ -136,6 +137,33 @@ void ProtoBufWebSocketMessageTest::testRequestFromBuffer()
     QVERIFY2(requestMessage->path() == QString::fromStdString(testPath), "Path wasn't set.");
     QVERIFY2(requestMessage->body() == QString::fromStdString(testBody), "Body wasn't set.");
     QVERIFY2(requestMessage->requestId() == testId, "Test id wasn't set.");
+}
+
+void ProtoBufWebSocketMessageTest::testResponseFromBuffer()
+{
+    google::protobuf::uint64 testId(3745646212);
+    google::protobuf::uint32 testStatus(12345);
+    std::string testMessage("feuhehefhd");
+    std::string testBody("body body body");
+
+    textsecure::WebSocketResponseMessage *tsResponseMessage = new textsecure::WebSocketResponseMessage;
+    tsResponseMessage->set_status(testStatus);
+    tsResponseMessage->set_message(testMessage);
+    tsResponseMessage->set_body(testBody);
+    tsResponseMessage->set_id(testId);
+
+    textsecure::WebSocketMessage *tsMessage = new textsecure::WebSocketMessage;
+    tsMessage->set_type(textsecure::WebSocketMessage_Type_RESPONSE);
+    tsMessage->set_allocated_response(tsResponseMessage);
+
+    ProtoBufWebSocketMessage message(QByteArray::fromStdString(tsMessage->SerializeAsString()));
+    QVERIFY2(message.type() == ProtoBufWebSocketMessage::RESPONSE_MESSAGE, "Wrong message type");
+
+    auto responseMessage = message.responseMessage();
+    QVERIFY2(responseMessage->status() == testStatus, "verb wasn't set.");
+    QVERIFY2(responseMessage->message() == QString::fromStdString(testMessage), "Message wasn't set.");
+    QVERIFY2(responseMessage->body() == QString::fromStdString(testBody), "Body wasn't set.");
+    QVERIFY2(responseMessage->requestId() == testId, "Test id wasn't set.");
 }
 
 QTEST_APPLESS_MAIN(ProtoBufWebSocketMessageTest)
