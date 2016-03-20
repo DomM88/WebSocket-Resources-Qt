@@ -9,13 +9,15 @@
 #ifndef WEBSOCKETCLIENT_H
 #define WEBSOCKETCLIENT_H
 
+#include <QHash>
 #include <QObject>
-#include <QFuture>
+#include <QPointer>
 #include <QSharedPointer>
 
 class QWebSocket;
 class WebSocketMessageFactory;
 class WebSocketResponseMessage;
+class WebSocketResponseTask;
 
 class WebSocketClient : public QObject
 {
@@ -26,13 +28,14 @@ public:
     QWebSocket *webSocket() const;
     void setWebSocket(QWebSocket *webSocket);
 
-    QFuture<WebSocketResponseMessage> sendRequest(const QString &verb, const QString &path, const QByteArray &body);
+    QPointer<WebSocketResponseTask> sendRequest(const QString &verb, const QString &path, const QByteArray &body);
 
 private:
     std::mt19937_64 m_randomGenerator;
     quint64 generateRequestId();
     QWebSocket *m_webSocket = nullptr;
     QSharedPointer<WebSocketMessageFactory> m_messageFactory;
+    QHash<quint64, QPointer<WebSocketResponseTask>> m_responseTasks;
 };
 
 #endif // WEBSOCKETCLIENT_H

@@ -6,9 +6,13 @@
  *
  */
 
+#include <QWebSocket>
+
 #include <messages/WebSocketResponseMessage.h>
+#include <messages/WebSocketMessageFactory.h>
 
 #include "WebSocketClient.h"
+#include "WebSocketResponseTask.h"
 
 WebSocketClient::WebSocketClient(QWebSocket *webSocket, QSharedPointer<WebSocketMessageFactory> messageFactory,
                                  QObject *parent)
@@ -34,11 +38,31 @@ void WebSocketClient::setWebSocket(QWebSocket *webSocket)
     m_webSocket = webSocket;
 }
 
-QFuture<WebSocketResponseMessage> WebSocketClient::sendRequest(const QString &verb,
+/*!
+ * \brief WebSocketClient::sendRequest
+ * Returns a new WebSocketResponseTask for this request. The caller is responsible to delete the
+ * object, if it isn't needed anymore.
+ * \param verb
+ * \param path
+ * \param body
+ * \return
+ */
+QPointer<WebSocketResponseTask> WebSocketClient::sendRequest(const QString &verb,
                                                                const QString &path,
                                                                const QByteArray &body)
 {
+    QPointer<WebSocketResponseTask> responseTask(new WebSocketResponseTask);
+
+    if (!m_webSocket) {
+        return responseTask;
+    }
+
     quint64 requestId = generateRequestId();
+    m_responseTasks.insert(requestId, responseTask);
+
+    auto requestMessage = m_messageFactory->createRequest(requestId, verb, path, body);
+
+    m_webSocket->sendBinaryMessage(requestMessage->toByteArray());
 }
 
 quint64 WebSocketClient::generateRequestId()

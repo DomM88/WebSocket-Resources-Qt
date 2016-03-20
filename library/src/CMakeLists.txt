@@ -1,10 +1,11 @@
 project(WebSocket-Resources-Qt)
 
 find_package( Qt5Core REQUIRED )
-find_package( Qt5Concurrent REQUIRED )
+find_package( Qt5WebSockets REQUIRED )
 
 set( Project_SRC
    WebSocketClient.cpp
+   WebSocketResponseTask.cpp
 
    messages/WebSocketMessage.h
    messages/WebSocketMessageFactory.h
@@ -24,4 +25,4 @@ set( Project_SRC
 add_library(${PROJECT_NAME} ${Project_SRC})
 target_link_libraries(${PROJECT_NAME} ProtoBufGenLib)
 
-qt5_use_modules(${PROJECT_NAME} Core Concurrent )
+qt5_use_modules(${PROJECT_NAME} Core WebSockets )

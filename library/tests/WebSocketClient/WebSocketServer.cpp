@@ -16,7 +16,7 @@ WebSocketServer::WebSocketServer(const QString &serverName, int port, QObject *p
     : QObject(parent)
     , m_webSocketServer(new QWebSocketServer(serverName, QWebSocketServer::NonSecureMode, this))
 {
-    if (m_webSocketServer->listen(QHostAddress::Any, port)) {
+    if (m_webSocketServer->listen(QHostAddress::LocalHost, port)) {
         qDebug() << "Echoserver listening on port" << port;
         connect(m_webSocketServer.data(), &QWebSocketServer::newConnection,
                 this, &WebSocketServer::onNewConnection);
